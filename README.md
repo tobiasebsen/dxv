@@ -7,7 +7,7 @@ https://cdm.link/2009/03/exclusive-inside-resolumes-new-gpu-powered-live-visual-
 https://resolume.com/software/codec  
 
 ## Specification
-The file format specification is not made available, but it has been reverse-engineered by developers of the ffmpeg libraries. The following specification is based on the code available here: https://github.com/libav/libav/blob/master/libavcodec/dxv.c
+The file format specification is not made available, but it has been reverse-engineered by developers of the ffmpeg libraries. The following specification is based on the code available here: https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/dxv.c
 
 ### File format
 The file format is QuickTime MOV. This container format has multiplexed video and audio streams comprised of interleaved packets. In order to identify the file as DXV the video stream is marked by a FourCC identifier (also call RIFF or OSType). Following identifiers have been registered:
