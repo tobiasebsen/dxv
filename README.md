@@ -3,13 +3,21 @@
 The DXV codec uses GPU-enabled [S3 Texture Compression](https://en.wikipedia.org/wiki/S3_Texture_Compression) similar to the [HAP codec](https://github.com/Vidvox/hap). I also has optional CPU-compression using [LZF](https://en.wikibooks.org/wiki/Data_Compression/Dictionary_compression#LZF), which is very similar in performance to [Snappy](https://github.com/google/snappy) used by HAP. Based on these technical specifications the codecs should be almost identical in performance.
 
 ### Background articles:
-https://cdm.link/2009/03/exclusive-inside-resolumes-new-gpu-powered-live-visual-ready-dxv-codec/
-https://resolume.com/software/codec
+https://cdm.link/2009/03/exclusive-inside-resolumes-new-gpu-powered-live-visual-ready-dxv-codec/  
+https://resolume.com/software/codec  
 
 ## Specification
 The file format specification is not made available, but it has been reverse-engineered by developers of the ffmpeg libraries. The following specification is based on the code available here: https://github.com/libav/libav/blob/master/libavcodec/dxv.c
 
-### Header
+### File format
+The file format is QuickTime MOV. This container format has multiplexed video and audio streams comprised of interleaved packets. In order to identify the file as DXV the video stream is marked by a FourCC identifier (also call RIFF or OSType). Following identifiers have been registered:
+| FourCC | Version |
+|--------|---------|
+| DXDI   | 1       |
+| DXD3   | 3       |
+
+
+### Packet Header
 | Byte offset | Data type | Description       |
 |-------------|-----------|-------------------|
 | 0           | 32-bit    | Tag *             |
