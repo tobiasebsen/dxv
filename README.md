@@ -10,14 +10,14 @@ https://resolume.com/software/codec
 The file format specification is not made available, but it has been reverse-engineered by developers of the ffmpeg libraries. The following specification is based on the code available here: https://github.com/FFmpeg/FFmpeg/blob/master/libavcodec/dxv.c
 
 ### File format
-The file format is QuickTime MOV. This container format has multiplexed video and audio streams comprised of interleaved packets. In order to identify the file as DXV the video stream is marked by a FourCC identifier (also call RIFF or OSType). Following identifiers have been registered:
+The file format is QuickTime MOV. This container format has multiplexed video and audio streams comprised of interleaved packets. In order to identify the file as DXV the video stream is marked by a FourCC identifier (also called RIFF or OSType). Following identifiers have been registered:
 | FourCC | Version |
 |--------|---------|
-| DXDI   | 1       |
-| DXD3   | 3       |
+| DXDI   | DXV 1   |
+| DXD3   | DXV 3   |
 
 
-### Packet Header
+### DXV 3 packet header
 | Byte offset | Data type | Description       |
 |-------------|-----------|-------------------|
 | 0           | 32-bit    | Tag *             |
@@ -34,9 +34,9 @@ This is a FourCC-style tag identifying the type of texture compression used. Her
 | DXT1   |
 | DXT5   |
 | YCG6   |
-| YG60   |
+| YG10   |
 
-### Old header
+### DXV 1 packet header
 Previous versions (DXV1) used a smaller 4-byte header.
 | Bit offset  | Bit length | Description |
 |-------------|------------|-------------|
@@ -51,4 +51,4 @@ Bits set
 3 - RAW (no LZF)  
 
 ### Data
-The data following the header has the size described by the size-field in the header. If the Raw-flag is not set, it is compressed by LZF. The decompressed (or raw) data can be uploaded to a GPU-texture.
+The data following the header has the size described by the size-field in the header. In DXV 1 the data may be compressed by LZF-compression (indicated by the missing raw-flag). But in the later DXV 3 there seems to be no LZF-compression available - probably due to the poor performance with high-resolution content.
